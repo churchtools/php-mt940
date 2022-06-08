@@ -2,6 +2,7 @@
 
 namespace Kingsquare\Parser\Banking\Mt940\Engine;
 
+use Kingsquare\Banking\Statement;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -10,10 +11,23 @@ use PHPUnit\Framework\TestCase;
 class ParseTest extends TestCase
 {
     /**
+     * @var Statement[]
+     */
+    private $statements;
+
+    protected function setUp(): void
+    {
+        $engine = new Unknown();
+        $engine->loadString(file_get_contents(__DIR__.'/sample'));
+        $this->statements = $engine->parse();
+    }
+
+    /**
      *
      */
-    public function testParse()
+    public function test()
     {
-        $this->markTestIncomplete('The unkonwn / default is still empty and reverts to engine');
+        self::assertEquals('50092100', $this->statements[0]->getBankCode());
+        self::assertEquals('1782002', $this->statements[0]->getAccountNumber());
     }
 }

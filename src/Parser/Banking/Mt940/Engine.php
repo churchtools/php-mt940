@@ -141,6 +141,8 @@ abstract class Engine
             }
             $statement->setBank($this->parseStatementBank());
             $statement->setAccount($this->parseStatementAccount());
+            $statement->setBankCode($this->parseBankCode());
+            $statement->setAccountNumber($this->parseAccountNumber());
             $statement->setStartPrice($this->parseStatementStartPrice());
             $statement->setEndPrice($this->parseStatementEndPrice());
             $statement->setStartTimestamp($this->parseStatementStartTimestamp());
@@ -263,6 +265,28 @@ abstract class Engine
             return $this->sanitizeAccount($results[1]);
         }
 
+        return '';
+    }
+
+    protected function parseBankCode()
+    {
+        $results = [];
+        if (preg_match('/:25:([A-Z0-9]{8})\/([\d\.]+)*/', $this->getCurrentStatementData(), $results)
+            && !empty($results[1])
+        ) {
+            return $results[1];
+        }
+        return '';
+    }
+
+    protected function parseAccountNumber()
+    {
+        $results = [];
+        if (preg_match('/:25:([A-Z0-9]*)\/([\d\.]+)*/', $this->getCurrentStatementData(), $results)
+            && !empty($results[2])
+        ) {
+            return ltrim($results[2], '0');
+        }
         return '';
     }
 

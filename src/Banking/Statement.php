@@ -12,6 +12,10 @@ class Statement implements \JsonSerializable
 {
     private $bank = '';
     private $account = '';
+    private $bankCode = '';
+    private $accountNumber = '';
+    private $iban = '';
+    private $swiftCode = '';
     private $transactions = [];
     private $startPrice = 0.0;
     private $endPrice = 0.0;
@@ -42,6 +46,22 @@ class Statement implements \JsonSerializable
     public function setAccount($var)
     {
         $this->account = (string)$var;
+    }
+
+    /**
+     * @param string $bankCode
+     */
+    public function setBankCode(string $bankCode): void
+    {
+        $this->bankCode = $bankCode;
+    }
+
+    /**
+     * @param string $iban
+     */
+    public function setIban(string $iban): void
+    {
+        $this->iban = $iban;
     }
 
     /**
@@ -219,5 +239,53 @@ class Statement implements \JsonSerializable
     public function getDeltaPrice()
     {
         return $this->getStartPrice() - $this->getEndPrice();
+    }
+
+    /**
+     * @return string
+     */
+    public function getBankCode(): string
+    {
+        return $this->bankCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIban(): string
+    {
+        return $this->iban;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSwiftCode(): string
+    {
+        return $this->swiftCode;
+    }
+
+    /**
+     * @param string $swiftCode
+     */
+    public function setSwiftCode(string $swiftCode): void
+    {
+        $this->swiftCode = $swiftCode;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccountNumber(): string
+    {
+        return $this->accountNumber;
+    }
+
+    /**
+     * @param string $accountNumber
+     */
+    public function setAccountNumber(string $accountNumber): void
+    {
+        $this->accountNumber = $accountNumber;
     }
 }
