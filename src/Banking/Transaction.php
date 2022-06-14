@@ -22,6 +22,7 @@ class Transaction implements \JsonSerializable
     private $valueTimestamp = 0;
     private $entryTimestamp = 0;
     private $transactionCode = '';
+    private $fingerprint = '';
 
     /**
      * @return array
@@ -202,5 +203,21 @@ class Transaction implements \JsonSerializable
     public function isCancellation()
     {
         return $this->cancellation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFingerprint(): string
+    {
+        return $this->fingerprint;
+    }
+
+    /**
+     * @param string $fingerprint
+     */
+    public function setFingerprint(string $fingerprint): void
+    {
+        $this->fingerprint = $fingerprint;
     }
 }

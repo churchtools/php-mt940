@@ -162,8 +162,9 @@ abstract class Engine
                 $transaction->setCancellation($this->parseTransactionCancellation());
                 $transaction->setDescription($this->parseTransactionDescription());
                 $transaction->setValueTimestamp($this->parseTransactionValueTimestamp());
-                $transaction->setEntryTimestamp($this->parseTransactionEntryTimestamp($transaction->getValueTimestamp()));
+                $transaction->setEntryTimestamp($this->parseTransactionEntryTimestamp());
                 $transaction->setTransactionCode($this->parseTransactionCode());
+                $transaction->setFingerprint($this->calculateTransactionFingerprint());
                 $statement->addTransaction($transaction);
             }
             $results[] = $statement;
@@ -572,6 +573,24 @@ abstract class Engine
             return trim($results[1]);
         }
         return '';
+    }
+
+    protected function getField(string $code)
+    {
+        $results = [];
+        if (preg_match("/:$code:(.*?):\d\d.?:/s", $this->getCurrentTransactionData(), $results)
+            && !empty($results[1])
+        ) {
+            return trim($results[1]);
+        }
+        return '';
+    }
+
+    protected function calculateTransactionFingerprint()
+    {
+        $field86 = $this->getField('86');
+        $field61 = $this->getField('61');
+        return hash('sha256', $field61 . $field86);
     }
 
     /**
