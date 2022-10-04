@@ -581,7 +581,12 @@ abstract class Engine
         ) {
             return trim($results[1]);
         }
-        return '';
+        if (preg_match("/:$code:(.*)/s", $this->getCurrentTransactionData(), $results)
+            && !empty($results[1])
+        ) {
+            return trim($results[1]);
+        }
+        throw new \InvalidArgumentException("could not get MTA940 field with code $code");
     }
 
     protected function calculateTransactionFingerprint()
