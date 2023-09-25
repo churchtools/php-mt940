@@ -520,8 +520,11 @@ abstract class Engine
 
             list(, $valueDateY, $valueDateMD, $valueDateM, $entryDateMD, $entryDateM) = $results;
             $entryDate = $valueDateY . $entryDateMD;
-            if ($valueDateMD !== $entryDateMD && $valueDateM > $entryDateM) {
+            if ($valueDateMD !== $entryDateMD && $valueDateM === '12' &&  $entryDateM === '01') {
                 $entryDate = ($valueDateY + 1) . $entryDateMD;
+            }
+            if ($valueDateMD !== $entryDateMD && $valueDateM === '01' &&  $entryDateM === '12') {
+                $entryDate = ($valueDateY - 1) . $entryDateMD;
             }
 
             return $this->sanitizeTimestamp($entryDate, 'ymd');
