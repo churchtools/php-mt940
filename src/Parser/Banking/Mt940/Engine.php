@@ -184,7 +184,12 @@ abstract class Engine
             -1,
             PREG_SPLIT_NO_EMPTY
         );
-        array_shift($results); // remove the header
+        if (empty($results)) {
+            return [];
+        }
+        if (!preg_match("(^:20:|^-X{,3}$|\Z)", $results[0])) {
+            array_shift($results); // remove the header
+        }
         return $results;
     }
 
