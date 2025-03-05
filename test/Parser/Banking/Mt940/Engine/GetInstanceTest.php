@@ -3,7 +3,6 @@
 namespace Kingsquare\Parser\Banking\Mt940;
 
 use Kingsquare\Parser\Banking\Mt940\Engine\Unknown;
-use PHPUnit\Framework\Error;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -46,6 +45,7 @@ class GetInstanceTest extends TestCase
                 ['Ing', file_get_contents(__DIR__.'/Ing/sample')],
                 ['Rabo', file_get_contents(__DIR__.'/Rabo/sample')],
                 ['Spk', file_get_contents(__DIR__.'/Spk/sample')],
+                ['ALF', file_get_contents(__DIR__.'/ALF/sample')],
                 ['Triodos', file_get_contents(__DIR__.'/Triodos/sample')],
                 ['Unknown', 'this is an unknown format :)'],
         ];

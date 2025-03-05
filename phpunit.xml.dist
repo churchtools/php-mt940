@@ -7,18 +7,12 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="false"
-         syntaxCheck="false">
+         stopOnFailure="false">
     <testsuites>
         <testsuite name="Test Suite">
             <directory>./test/</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist>
-            <directory>./src</directory>
-        </whitelist>
-    </filter>
     <php>
         <ini name="error_reporting" value="32767"/>
         <ini name="date.timezone" value="Europe/Amsterdam"/>

@@ -60,7 +60,7 @@ class ParseTest extends TestCase
         $this->engine->loadString(file_get_contents(__DIR__ . '/sample'));
         $statements = $this->engine->parse();
         $first = $statements[0];
-        $expected = '/OCMT/USD2853,12/PAYMENT OF INVOICES 204011665 20401 1687/OGB/WXXXXX BANKING CORPORATION /VA/123456XXXXXXBENEFICIARY INFO/OSDR/HSBCHKHH-';
+        $expected = '/OCMT/USD2853,12/PAYMENT OF INVOICES 204011665 20401 1687/OGB/WXXXXX BANKING CORPORATION /VA/123456XXXXXXBENEFICIARY INFO/OSDR/HSBCHKHH';
         $this->assertSame($expected, $first->getTransactions()[0]->getDescription());
 
         $expected = '123456XXXXXX';
@@ -82,6 +82,6 @@ class ParseTest extends TestCase
 EOF
         );
         $statements = $this->engine->parse();
-        $this->assertSame('/A/B/C/D-', $statements[0]->getTransactions()[0]->getDescription());
+        $this->assertSame('/A/B/C/D', $statements[0]->getTransactions()[0]->getDescription());
     }
 }
