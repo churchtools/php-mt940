@@ -65,9 +65,9 @@ class StatementTest extends TestCase
     {
         $expected = time();
         $statement = new Statement();
-        $statement->setTimestamp($expected);
+        $statement->setStartTimestamp($expected);
 
-        $this->assertEquals($expected, $statement->getTimestamp());
+        $this->assertEquals($expected, $statement->getStartTimestamp());
     }
 
     public function testTimestampAssesor()
@@ -129,9 +129,9 @@ class StatementTest extends TestCase
     {
         $expected = '2012-01-01 12:00';
         $statement = new Statement();
-        $statement->setTimestamp(strtotime($expected));
+        $statement->setStartTimestamp(strtotime($expected));
 
-        $this->assertEquals($expected, $statement->getTimestamp('Y-m-d H:i'));
+        $this->assertEquals($expected, $statement->getStartTimestamp('Y-m-d H:i'));
     }
 
     public function testJsonSerialization()

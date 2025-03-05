@@ -21,6 +21,26 @@ class Abn extends Engine
     }
 
     /**
+     * Overloaded: split the rawdata up into statementdata chunks.
+     *
+     * @return array
+     */
+    protected function parseStatementData()
+    {
+        $results = preg_split(
+            '/(^:20:|^-X{,3}[\s]+|\Z)/m',
+            $this->getRawData(),
+            -1,
+            PREG_SPLIT_NO_EMPTY
+        );
+        array_shift($results); // remove the header
+        return array_filter($results, static function($statement) {
+            return strpos($statement, 'ABNANL2A') !== 0;
+        });
+    }
+
+
+    /**
      * Overloaded: ABN Amro shows the GIRO
      * includes fix for 'for GIRO 1234567 TEST 201009063689 CLIEOP 21-9' and translates that into 1234567.
      *

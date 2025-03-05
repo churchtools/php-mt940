@@ -32,6 +32,7 @@ abstract class Engine
         1100 => Engine\Kbs::class,
         1200 => Engine\Zetb::class,
         1300 => Engine\Kontist::class,
+        1400 => Engine\ALF::class,
     ];
 
     /**
@@ -179,7 +180,7 @@ abstract class Engine
     protected function parseStatementData()
     {
         $results = preg_split(
-            '/(^:20:|^-X{,3}$|\Z)/m',
+            '/(^:20:|^-X{,3}[\s]+|\Z)/m',
             $this->getRawData(),
             -1,
             PREG_SPLIT_NO_EMPTY

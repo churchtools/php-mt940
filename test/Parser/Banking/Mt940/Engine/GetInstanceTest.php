@@ -3,7 +3,7 @@
 namespace Kingsquare\Parser\Banking\Mt940;
 
 use Kingsquare\Parser\Banking\Mt940\Engine\Unknown;
-use PHPUnit\Framework\Error;
+use PHPUnit\Framework\Error\Notice;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -11,6 +11,20 @@ use PHPUnit\Framework\TestCase;
  */
 class GetInstanceTest extends TestCase
 {
+    /**
+     *
+     */
+    public function testUnknownEngineRaisesANotice()
+    {
+        try {
+            Engine::__getInstance('this is an unknown format :)');
+        } catch (\Exception $exptected) {
+            $this->assertInstanceOf(Notice::class, $exptected);
+            return  ;
+        }
+        $this->fail('Did not receive the notice');
+    }
+
     /**
      * @dataProvider enginesProvider
      *
@@ -46,6 +60,7 @@ class GetInstanceTest extends TestCase
                 ['Ing', file_get_contents(__DIR__.'/Ing/sample')],
                 ['Rabo', file_get_contents(__DIR__.'/Rabo/sample')],
                 ['Spk', file_get_contents(__DIR__.'/Spk/sample')],
+                ['ALF', file_get_contents(__DIR__.'/ALF/sample')],
                 ['Triodos', file_get_contents(__DIR__.'/Triodos/sample')],
                 ['Unknown', 'this is an unknown format :)'],
         ];

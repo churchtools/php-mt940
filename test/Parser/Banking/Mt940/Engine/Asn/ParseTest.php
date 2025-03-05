@@ -58,7 +58,7 @@ class ParseTest extends TestCase
 
         $this->assertEquals('D', $firstTransaction->getDebitCredit());
     }
-    
+
     public function testParseTransactionPrice()
     {
         $statements = $this->engine->parse();

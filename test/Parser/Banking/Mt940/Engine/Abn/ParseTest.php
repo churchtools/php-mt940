@@ -79,7 +79,7 @@ class ParseTest extends TestCase
         $this->assertEquals('15-12-2016', $transactions[1]->getValueTimestamp('d-m-Y'));
         $this->assertEquals('15-12-2016', $transactions[1]->getEntryTimestamp('d-m-Y'));
     }
-    
+
     public function testParseTransactionDebitCredit()
     {
         $statements = $this->engine->parse();
@@ -88,7 +88,7 @@ class ParseTest extends TestCase
 
         $this->assertEquals('D', $firstTransaction->getDebitCredit());
     }
-    
+
     public function testParseTransactionPrice()
     {
         $statements = $this->engine->parse();

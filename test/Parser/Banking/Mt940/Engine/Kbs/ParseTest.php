@@ -37,7 +37,7 @@ class ParseTest extends TestCase
         $this->assertEquals(-1870, $first->getDeltaPrice());
 
         $this->engine->loadString(file_get_contents(__DIR__.'/sample2'));
-        
+
         $statements = $this->engine->parse();
 
         $this->assertCount(1, $statements);
@@ -59,9 +59,9 @@ class ParseTest extends TestCase
         // the last does have an entryTimestamp (custom edited)
         $lastTransaction = end($transactions);
         $this->assertEquals('01-12-2020', $lastTransaction->getEntryTimestamp('d-m-Y'));
-        
+
         $this->engine->loadString(file_get_contents(__DIR__.'/sample2'));
-        
+
         $statements = $this->engine->parse();
         $transactions = reset($statements)->getTransactions();
         // the first has no entryTimestamp
@@ -81,7 +81,7 @@ class ParseTest extends TestCase
 
         $this->assertEquals('D', $firstTransaction->getDebitCredit());
     }
-    
+
     public function testParseTransactionPrice()
     {
         $statements = $this->engine->parse();

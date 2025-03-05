@@ -136,7 +136,7 @@ class Triodos extends Engine
     protected function parseStatementData()
     {
         return preg_split(
-            '/(^:20:|^-X{,3}$|\Z)/m',
+            '/(^:20:|^-X{,3}[\s]+|\Z)/m',
             $this->getRawData(),
             -1,
             PREG_SPLIT_NO_EMPTY

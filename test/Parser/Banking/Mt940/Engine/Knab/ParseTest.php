@@ -90,7 +90,7 @@ class ParseTest extends TestCase
         $price_f = $statements[0]->getEndPrice();
         $this->assertSame(13057.49 , $price_f);
     }
-    
+
     public function testParseTransactionDebitCredit()
     {
         $statements = $this->engine->parse();
@@ -99,7 +99,7 @@ class ParseTest extends TestCase
 
         $this->assertEquals('D', $firstTransaction->getDebitCredit());
     }
-    
+
     public function testParseTransactionPrice()
     {
         $statements = $this->engine->parse();

@@ -25,5 +25,8 @@
     "psr-4": {
       "Kingsquare\\": "src/"
     }
+  },
+  "scripts": {
+    "test": "phpunit --colors=always"
   }
 }
