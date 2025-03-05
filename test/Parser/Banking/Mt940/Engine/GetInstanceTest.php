@@ -3,7 +3,6 @@
 namespace Kingsquare\Parser\Banking\Mt940;
 
 use Kingsquare\Parser\Banking\Mt940\Engine\Unknown;
-use PHPUnit\Framework\Error\Notice;
 use PHPUnit\Framework\TestCase;
 
 /**
