@@ -3,15 +3,16 @@
 namespace Kingsquare\Parser\Banking\Mt940\Engine\Kbs;
 
 use Kingsquare\Parser\Banking\Mt940\Engine\Kbs;
+use PHPUnit\Framework\TestCase;
 
-class ParseTest extends \PHPUnit_Framework_TestCase
+class ParseTest extends TestCase
 {
     /**
      * @var Kbs
      */
     private $engine;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->engine = new Kbs();
         $this->engine->loadString(file_get_contents(__DIR__ . '/sample'));
@@ -36,7 +37,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-1870, $first->getDeltaPrice());
 
         $this->engine->loadString(file_get_contents(__DIR__.'/sample2'));
-        
+
         $statements = $this->engine->parse();
 
         $this->assertCount(1, $statements);
@@ -58,9 +59,9 @@ class ParseTest extends \PHPUnit_Framework_TestCase
         // the last does have an entryTimestamp (custom edited)
         $lastTransaction = end($transactions);
         $this->assertEquals('01-12-2020', $lastTransaction->getEntryTimestamp('d-m-Y'));
-        
+
         $this->engine->loadString(file_get_contents(__DIR__.'/sample2'));
-        
+
         $statements = $this->engine->parse();
         $transactions = reset($statements)->getTransactions();
         // the first has no entryTimestamp
@@ -80,7 +81,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('D', $firstTransaction->getDebitCredit());
     }
-    
+
     public function testParseTransactionPrice()
     {
         $statements = $this->engine->parse();

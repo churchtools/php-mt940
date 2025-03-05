@@ -2,10 +2,12 @@
 
 namespace Kingsquare\Banking;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  *
  */
-class StatementTest extends \PHPUnit_Framework_TestCase
+class StatementTest extends TestCase
 {
     public function testBankAssesor()
     {
@@ -63,9 +65,9 @@ class StatementTest extends \PHPUnit_Framework_TestCase
     {
         $expected = time();
         $statement = new Statement();
-        $statement->setTimestamp($expected);
+        $statement->setStartTimestamp($expected);
 
-        $this->assertEquals($expected, $statement->getTimestamp());
+        $this->assertEquals($expected, $statement->getStartTimestamp());
     }
 
     public function testTimestampAssesor()
@@ -127,9 +129,9 @@ class StatementTest extends \PHPUnit_Framework_TestCase
     {
         $expected = '2012-01-01 12:00';
         $statement = new Statement();
-        $statement->setTimestamp(strtotime($expected));
+        $statement->setStartTimestamp(strtotime($expected));
 
-        $this->assertEquals($expected, $statement->getTimestamp('Y-m-d H:i'));
+        $this->assertEquals($expected, $statement->getStartTimestamp('Y-m-d H:i'));
     }
 
     public function testJsonSerialization()
@@ -162,7 +164,8 @@ class StatementTest extends \PHPUnit_Framework_TestCase
             '"Kingsquare BV","price":110,"debitcredit":"D","description":"test","valueTimestamp":1231,"entryTimestamp"'.
             ':1234,"transactionCode":"13G"},{"account":"123123","accountName":"Kingsquare BV","price":110,"debitcredit"'.
             ':"D","description":"test","valueTimestamp":1231,"entryTimestamp":1234,"transactionCode":"13G"}],'.
-            '"startPrice":16250,"endPrice":6250,"number":"2665487AAF"}';
+            '"startPrice":16250,"endPrice":6250,"startTimestamp":123,"endTimestamp":0,"number":"2665487AAF",'.
+            '"currency":""}';
         $params = [
             'bank' => 'ABN',
             'account' => '62.90.64.393',
@@ -195,6 +198,10 @@ class StatementTest extends \PHPUnit_Framework_TestCase
         ];
         $statement = new Statement();
         foreach ($params as $key => $value) {
+            if ($key === 'timestamp') {
+                $statement->setStartTimestamp($value);
+                continue;
+            }
             $statement->{'set'.$key}($value);
         }
         $this->assertSame($expected, json_encode($statement));

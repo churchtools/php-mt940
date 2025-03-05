@@ -218,6 +218,6 @@ class Statement implements \JsonSerializable
      */
     public function getDeltaPrice()
     {
-        return $this->getStartPrice() - $this->getEndPrice();
+        return round($this->getStartPrice() - $this->getEndPrice(), 2);
     }
 }

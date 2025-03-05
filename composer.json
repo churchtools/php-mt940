@@ -15,15 +15,18 @@
     }
   ],
   "require": {
-    "php": ">=7",
+    "php": ">=7.1",
     "ext-json": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "4.4.*"
+    "phpunit/phpunit": "9.*"
   },
   "autoload": {
     "psr-4": {
       "Kingsquare\\": "src/"
     }
+  },
+  "scripts": {
+    "test": "phpunit --colors=always"
   }
 }

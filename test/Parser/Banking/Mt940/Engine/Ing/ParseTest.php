@@ -3,18 +3,19 @@
 namespace Kingsquare\Parser\Banking\Mt940\Engine\Ing;
 
 use Kingsquare\Parser\Banking\Mt940\Engine\Ing;
+use PHPUnit\Framework\TestCase;
 
 /**
  *
  */
-class ParseTest extends \PHPUnit_Framework_TestCase
+class ParseTest extends TestCase
 {
     /**
      * @var Ing
      */
     private $engine;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->engine = new Ing();
         $this->engine->loadString(file_get_contents(__DIR__.'/sample'));
@@ -54,7 +55,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
         $lastTransaction = end($transactions);
         $this->assertEquals('2010-07-21', $lastTransaction->getEntryTimestamp('Y-m-d'));
     }
-    
+
     public function testParseTransactionDebitCredit()
     {
         $statements = $this->engine->parse();
@@ -63,7 +64,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('C', $firstTransaction->getDebitCredit());
     }
-    
+
     public function testParseTransactionPrice()
     {
         $statements = $this->engine->parse();

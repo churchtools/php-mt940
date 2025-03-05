@@ -3,18 +3,19 @@
 namespace Kingsquare\Parser\Banking\Mt940\Engine\Rabo;
 
 use Kingsquare\Parser\Banking\Mt940\Engine\Rabo;
+use PHPUnit\Framework\TestCase;
 
 /**
  *
  */
-class ParseTest extends \PHPUnit_Framework_TestCase
+class ParseTest extends TestCase
 {
     /**
      * @var Rabo
      */
     private $engine;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->engine = new Rabo();
         $this->engine->loadString(file_get_contents(__DIR__.'/sample'));
@@ -55,7 +56,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2145.23, $statements[0]->getEndPrice());
         $this->assertEquals(-3145.35, $statements[0]->getDeltaPrice());
     }
-    
+
     public function testHandlingOfDescriptions() {
         $this->engine->loadString(file_get_contents(__DIR__.'/sample'));
         $statements = $this->engine->parse();
@@ -108,7 +109,7 @@ PURPTEST
         $statements = $this->engine->parse();
         $this->assertSame('PmtInfId-20151208-987', $statements[0]->getTransactions()[1]->getDescription());
     }
-    
+
     public function testParseTransactionDebitCredit()
     {
         $statements = $this->engine->parse();
@@ -117,7 +118,7 @@ PURPTEST
 
         $this->assertEquals('C', $firstTransaction->getDebitCredit());
     }
-    
+
     public function testParseTransactionPrice()
     {
         $statements = $this->engine->parse();

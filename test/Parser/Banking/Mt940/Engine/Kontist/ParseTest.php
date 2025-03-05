@@ -3,10 +3,11 @@
 namespace Kingsquare\Parser\Banking\Mt940\Engine\Kontist;
 
 use Kingsquare\Parser\Banking\Mt940\Engine\Kontist;
+use PHPUnit\Framework\TestCase;
 
 /**
  */
-class ParseTest extends \PHPUnit_Framework_TestCase
+class ParseTest extends TestCase
 {
 
     /**
@@ -15,7 +16,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
      */
     private $engine;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->engine = new Kontist();
         $this->engine->loadString(file_get_contents(__DIR__ . '/sample'));
@@ -52,7 +53,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
         $lastTransaction = end($transactions);
         $this->assertEquals('17-02-2021', $lastTransaction->getEntryTimestamp('d-m-Y'));
     }
-    
+
     public function testParseTransactionDebitCredit()
     {
         $statements = $this->engine->parse();
@@ -61,7 +62,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('C', $firstTransaction->getDebitCredit());
     }
-    
+
     public function testParseTransactionPrice()
     {
         $statements = $this->engine->parse();

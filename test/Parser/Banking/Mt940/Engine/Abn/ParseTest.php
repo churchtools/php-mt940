@@ -3,18 +3,19 @@
 namespace Kingsquare\Parser\Banking\Mt940\Engine\Abn;
 
 use Kingsquare\Parser\Banking\Mt940\Engine\Abn;
+use PHPUnit\Framework\TestCase;
 
 /**
  *
  */
-class ParseTest extends \PHPUnit_Framework_TestCase
+class ParseTest extends TestCase
 {
     /**
      * @var Abn
      */
     private $engine;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->engine = new Abn();
         $this->engine->loadString(file_get_contents(__DIR__.'/sample'));
@@ -78,7 +79,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('15-12-2016', $transactions[1]->getValueTimestamp('d-m-Y'));
         $this->assertEquals('15-12-2016', $transactions[1]->getEntryTimestamp('d-m-Y'));
     }
-    
+
     public function testParseTransactionDebitCredit()
     {
         $statements = $this->engine->parse();
@@ -87,7 +88,7 @@ class ParseTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('D', $firstTransaction->getDebitCredit());
     }
-    
+
     public function testParseTransactionPrice()
     {
         $statements = $this->engine->parse();
