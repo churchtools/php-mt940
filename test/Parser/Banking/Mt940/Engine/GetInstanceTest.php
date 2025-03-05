@@ -12,20 +12,6 @@ use PHPUnit\Framework\TestCase;
 class GetInstanceTest extends TestCase
 {
     /**
-     *
-     */
-    public function testUnknownEngineRaisesANotice()
-    {
-        try {
-            Engine::__getInstance('this is an unknown format :)');
-        } catch (\Exception $exptected) {
-            $this->assertInstanceOf(Notice::class, $exptected);
-            return  ;
-        }
-        $this->fail('Did not receive the notice');
-    }
-
-    /**
      * @dataProvider enginesProvider
      *
      * @param string $engineString

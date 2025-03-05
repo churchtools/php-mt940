@@ -595,7 +595,11 @@ abstract class Engine
 
     protected function calculateTransactionFingerprint()
     {
-        $field86 = $this->getField('86');
+        try {
+            $field86 = $this->getField('86');
+        } catch (\Exception $exception) {
+            $field86 = '';
+        }
         $field61 = $this->getField('61');
         return hash('sha256', $field61 . $field86);
     }

@@ -136,8 +136,9 @@ class StatementTest extends TestCase
 
     public function testJsonSerialization()
     {
-        $expected = '{"bank":"ABN","account":"62.90.64.393","transactions":[],'.
-                '"startPrice":16250,"endPrice":6250,"startTimestamp":123,"endTimestamp":0,"number":"2665487AAF","currency":""}';
+        $expected = '{"bank":"ABN","account":"62.90.64.393","bankCode":"","accountNumber":"","iban":"","swiftCode":"",'.
+            '"transactions":[],"startPrice":16250,"endPrice":6250,"startTimestamp":123,"endTimestamp":0,'.
+            '"number":"2665487AAF","currency":""}';
         $params = [
             'bank' => 'ABN',
             'account' => '62.90.64.393',

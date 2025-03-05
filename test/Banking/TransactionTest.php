@@ -148,7 +148,7 @@ class TransactionTest extends TestCase
     public function testJsonSerialization()
     {
         $expected = '{"account":"123123","accountName":"Kingsquare BV","price":110,"debitcredit":"D","cancellation":false,'.
-            '"description":"test","valueTimestamp":1231,"entryTimestamp":1234,"transactionCode":"13G"}';
+            '"description":"test","valueTimestamp":1231,"entryTimestamp":1234,"transactionCode":"13G","fingerprint":""}';
 
         $params = [
             'account' => '123123',
