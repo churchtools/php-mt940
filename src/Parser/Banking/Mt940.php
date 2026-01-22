@@ -24,7 +24,7 @@ class Mt940 extends Banking
      *
      * @return \Kingsquare\Banking\Statement[]
      */
-    public function parse($string, Banking\Mt940\Engine $engine = null)
+    public function parse($string, ?Banking\Mt940\Engine $engine = null)
     {
         if (!empty($string)) {
             // load engine
