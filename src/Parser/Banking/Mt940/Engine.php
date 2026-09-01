@@ -420,10 +420,24 @@ abstract class Engine
     protected function parseTransactionAccount()
     {
         $results = [];
+        if (preg_match('/\?31([^?\r\n]+)/', $this->getCurrentTransactionData(), $results)
+            && !empty($results[1])
+        ) {
+            return $this->sanitizeAccount($results[1]);
+        }
+
         if (preg_match('/^:86: ?([\d\.]+)\s/m', $this->getCurrentTransactionData(), $results)
             && !empty($results[1])
         ) {
             return $this->sanitizeAccount($results[1]);
+        }
+
+        preg_match_all('/\?(?:2\d|6[0-3])([^?]*)/', $this->getCurrentTransactionData(), $purposeFields);
+        $purpose = implode('', array_map('trim', $purposeFields[1]));
+        if (preg_match('/IBAN:\s*([A-Z]{2}\d{2}[A-Z0-9]{11,30})(?=\s|$)/i', $purpose, $results)
+            && !empty($results[1])
+        ) {
+            return $this->sanitizeAccount(strtoupper($results[1]));
         }
 
         return '';
