@@ -42,4 +42,16 @@ class ParseTest extends TestCase
 
         self::assertEquals('DE43123456789012345678', $statements[0]->getTransactions()[0]->getAccount());
     }
+
+    public function testParsesWrappedAccountFieldWithoutPurposeFields()
+    {
+        $engine = new Unknown();
+        $engine->loadString(file_get_contents(__DIR__.'/wrapped-account-sample'));
+
+        $transactions = $engine->parse()[0]->getTransactions();
+
+        self::assertEquals('DE43123456789012345678', $transactions[0]->getAccount());
+        self::assertEquals('DE977', $transactions[1]->getAccount());
+        self::assertEquals('P12345', $transactions[2]->getAccount());
+    }
 }

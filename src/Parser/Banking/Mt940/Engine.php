@@ -420,10 +420,10 @@ abstract class Engine
     protected function parseTransactionAccount()
     {
         $results = [];
-        if (preg_match('/\?31([^?\r\n]+)/', $this->getCurrentTransactionData(), $results)
+        if (preg_match('/\?31(.*?)(?=\?\d{2}|(?:\r?\n):\d{2}[A-Z]?:|$)/s', $this->getCurrentTransactionData(), $results)
             && !empty($results[1])
         ) {
-            return $this->sanitizeAccount($results[1]);
+            return $this->sanitizeAccount(preg_replace('/\s+/', '', $results[1]));
         }
 
         if (preg_match('/^:86: ?([\d\.]+)\s/m', $this->getCurrentTransactionData(), $results)
@@ -647,7 +647,7 @@ abstract class Engine
             ),
             '0'
         );
-        if ($account !== '' && strlen($account) < 9 && strpos($account, 'P') === false) {
+        if ($account !== '' && strlen($account) < 9 && ctype_digit($account)) {
             $account = 'P' . $account;
         }
 
